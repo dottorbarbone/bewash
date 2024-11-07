@@ -12,7 +12,7 @@ export default function ButtonGroup(){
     return(
         <Container sx={{display:"flex", marginTop:"50px"}}>
             
-                <Button variant="outlined">Add Reservation</Button> &emsp;
+                <Button variant="outlined" href="/newreservation">Add Reservation</Button> &emsp;
                 <Button variant="outlined">Add Money Movement</Button> &emsp;
                 <Button variant="outlined">Add Note</Button> &emsp;
                 <Button variant="outlined">Clients</Button> &emsp;
