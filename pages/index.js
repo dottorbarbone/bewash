@@ -9,12 +9,13 @@ import Reservations from "@/components/Reservations";
 import Contability from "@/components/Contability";
 import Notes from "@/components/Notes";
 import ButtonGroup from "@/components/ButtonsGroup";
-
+import TotalEntrance from "./totalentrance";
 export default function Home() {
   return (
     <>
       <ButtonGroup />
       <Reservations />
+      <TotalEntrance />
       <Contability />
       <Notes />
     </>

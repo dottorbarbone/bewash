@@ -1,4 +1,5 @@
-import UpdateReservations from "./UpdateReservationstrasfo";
-export default function UpdateCardFly() {
-  return <UpdateReservations />;
+import UpdateReservation from "../UpdateReservation";
+
+export default function UpdateReservationPage(){
+    return <UpdateReservation/>;
 }

@@ -20,6 +20,16 @@ export default function ReservationCard({ reservation, onEdit }) {
   // Usa il colore specificato dall'utente se presente, altrimenti genera un colore casuale
   const backgroundColor = reservation.color || getRandomColor();
 
+  // Formattazione della data e ora
+  const formattedDate = new Date(reservation.dataOra).toLocaleString('it-IT', {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+
   return (
     <Card sx={{ display: "flex", flexDirection: "column", marginBottom: "20px", borderRadius: "15px", boxShadow: 4 }}>
       <CardMedia
@@ -41,17 +51,15 @@ export default function ReservationCard({ reservation, onEdit }) {
             {reservation.propietario}
           </Typography>
           {/* Bottone di modifica */}
-          <Link href={`/newreservations/${reservation.id}`} passHref>
-            <Button variant="contained" startIcon={<EditIcon />}>
-              Modifica
-            </Button>
+          <Link href={`/updatereservation/${reservation.id}`} passHref>
+            <Button color="alert" startIcon={<EditIcon />}/>
           </Link>
         </Box>
         <Divider />
         <Box sx={{ display: "flex", flexDirection: "column", marginTop: "10px" }}>
           <Box sx={{ display: "flex", alignItems: "center", marginBottom: "5px" }}>
             <EventIcon color="primary" sx={{ marginRight: "8px" }} />
-            <Typography variant="body1">Data e ora: {reservation.dataOra}</Typography>
+            <Typography variant="body1">{formattedDate}</Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", marginBottom: "5px" }}>
             <AccessTimeIcon color="secondary" sx={{ marginRight: "8px" }} />
@@ -66,3 +74,5 @@ export default function ReservationCard({ reservation, onEdit }) {
     </Card>
   );
 }
+
+
