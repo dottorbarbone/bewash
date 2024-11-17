@@ -15,7 +15,7 @@ export default function ButtonGroup(){
                 <Button variant="outlined" href="/newreservation">Add Reservation</Button> &emsp;
                 <Button variant="outlined">Add Money Movement</Button> &emsp;
                 <Button variant="outlined">Add Note</Button> &emsp;
-                <Button variant="outlined">Clients</Button> &emsp;
+                <Button variant="outlined" href="/clients">Clients</Button> &emsp;
                 <Button variant="outlined">Shop</Button> &emsp;
                 <Button variant="outlined">Cars</Button> &emsp;
                 <Button variant="outlined">Products</Button> &emsp; 
