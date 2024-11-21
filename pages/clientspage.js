@@ -10,6 +10,9 @@ export default function Client() {
       </Typography>
       <Button variant="contained" href="/newclients" sx={{ marginBottom: "20px" }}>
         Add Client
+      </Button> &emsp;
+      <Button variant="outlined" color="success" href="/" sx={{ marginBottom: "20px" }}>
+        Home
       </Button>
       <Clients /> {/* Usa il componente con la lettera maiuscola */}
     </Container>
