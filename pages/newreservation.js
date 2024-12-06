@@ -54,6 +54,7 @@ export default function FormPage() {
 
   return (
     <Container style={{ marginTop: "50px", color: "white", borderRadius: "8px" }}>
+      <Typography variant="h4">New Reservation</Typography><br/><br/>
       <Box component="form" noValidate autoComplete="on" display="flex" flexDirection="column" gap={3} onSubmit={handleSubmit}>
         <TextField
           label="Data e ora"

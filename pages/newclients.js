@@ -56,7 +56,7 @@ export default function NewCLient() {
 
   return (
     <Container style={{ marginTop: "50px", color: "white", borderRadius: "8px" }}>
-        <Typography variant="h3">New Client</Typography><br/><br/>
+      <Typography variant="h4">New Client</Typography><br/><br/>
       <Box component="form" noValidate autoComplete="on" display="flex" flexDirection="column" gap={3} onSubmit={handleSubmit}>
       <TextField
           label="Nome"

@@ -58,7 +58,7 @@ export default function ClientCard({ client, onEdit }) {
     >
       <CardMedia
         component="div"
-        sx={{ height: 100, background:client.colore }}
+        sx={{ height: 65, background:client.colore }}
       >
         <Box
           sx={{

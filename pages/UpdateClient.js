@@ -23,46 +23,44 @@ import { getDatabase, ref, get, set, remove } from "firebase/database";
 const firebaseConfig = {
   apiKey: "AIzaSyAiJkUm3ioqM1aFRKeIfbrAmImq6Jq2-VM",
   authDomain: "bewash-bb768.firebaseapp.com",
-  databaseURL:
-    "https://bewash-bb768-default-rtdb.europe-west1.firebasedatabase.app",
+  databaseURL: "https://bewash-bb768-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "bewash-bb768",
   storageBucket: "bewash-bb768.firebasestorage.app",
   messagingSenderId: "170123363473",
   appId: "1:170123363473:web:15adc0ad813b68b213eb30",
-  measurementId: "G-QC730GJFDX",
+  measurementId: "G-QC730GJFDX"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-export default function UpdateReservation() {
+export default function Updateclients() {
   const router = useRouter();
   const { id } = router.query;
 
   const [formData, setFormData] = useState({
-    dataOra: "",
-    macchina: "",
-    propietario: "",
-    tempoDiImpiego: "",
-    prezzo: "",
-    color: "#0000FF",
+    nome: "",
+    cognome: "",
+    telefono: "",
+    incasso: "",
+    vettura: "",
+    immagine:"",
+    colore: "#0000FF",
   });
   const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     if (id) {
-      const reservationRef = ref(db, `reservations/${id}`);
-      get(reservationRef)
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            setFormData({ ...snapshot.val() });
-          } else {
-            console.error("Nessun dato trovato per l'ID specificato");
-          }
-        })
-        .catch((error) => {
-          console.error("Errore durante il recupero dei dati:", error);
-        });
+      const clientsRef = ref(db, `clients/${id}`);
+      get(clientsRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          setFormData({ ...snapshot.val() });
+        } else {
+          console.error("Nessun clients trovato per l'ID specificato");
+        }
+      }).catch((error) => {
+        console.error("Errore durante il recupero dei dati:", error);
+      });
     }
   }, [id]);
 
@@ -74,22 +72,22 @@ export default function UpdateReservation() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await set(ref(db, `reservations/${id}`), formData);
-      alert("Dati aggiornati con successo");
-      router.push("/");
+      await set(ref(db, `clients/${id}`), formData);
+      alert("clients aggiornato con successo");
+      router.push('/clientspage');
     } catch (error) {
-      console.error("Errore durante l'aggiornamento dei dati:", error);
+      console.error("Errore durante l'aggiornamento del clients:", error);
       alert("Errore durante l'operazione");
     }
   };
 
   const handleDelete = async () => {
     try {
-      await remove(ref(db, `reservations/${id}`));
-      alert("Prenotazione eliminata con successo");
-      router.push("/");
+      await remove(ref(db, `clients/${id}`));
+      alert("clients eliminato con successo");
+      router.push('/clientspage');
     } catch (error) {
-      console.error("Errore durante l'eliminazione dei dati:", error);
+      console.error("Errore durante l'eliminazione del clients:", error);
       alert("Errore durante l'operazione di eliminazione");
     }
   };
@@ -102,50 +100,16 @@ export default function UpdateReservation() {
     setOpenDialog(false);
   };
 
-  // Funzione per mettere in stato "pagato"
-  const handleMarkAsPaid = async () => {
-    try {
-      await set(ref(db, `reservations/${id}/stato`), 1); // Imposta stato a 1 per "pagato"
-      alert("Prenotazione contrassegnata come pagata");
-      router.push("/");
-    } catch (error) {
-      console.error("Errore durante l'aggiornamento dello stato:", error);
-      alert("Errore durante l'operazione");
-    }
-  };
-  const handleMarkAsNotPaid = async () => {
-    try {
-      await set(ref(db, `reservations/${id}/stato`), 0); // Imposta stato a 1 per "pagato"
-      alert("Prenotazione contrassegnata come non pagata");
-      router.push("/");
-    } catch (error) {
-      console.error("Errore durante l'aggiornamento dello stato:", error);
-      alert("Errore durante l'operazione");
-    }
-  };
-
   return (
-    <Container
-      style={{ marginTop: "50px", color: "white", borderRadius: "8px" }}
-    >
-      <Typography variant="h4" style={{ marginBottom: "20px" }}>
-        Modifica Prenotazione
-      </Typography>
-      <br />
-      <Box
-        component="form"
-        noValidate
-        autoComplete="on"
-        display="flex"
-        flexDirection="column"
-        gap={3}
-        onSubmit={handleSubmit}
-      >
+    <Container style={{ marginTop: "50px", color: "white", borderRadius: "8px" }}>
+      <Typography variant="h4" style={{ marginBottom: "20px" }}>Modifica clientse</Typography>
+      <br/>
+      <Box component="form" noValidate autoComplete="on" display="flex" flexDirection="column" gap={3} onSubmit={handleSubmit}>
         <TextField
-          label="Data e ora"
-          type="datetime-local"
-          name="dataOra"
-          value={formData.dataOra}
+          label="Nome"
+          type="text"
+          name="nome"
+          value={formData.nome}
           onChange={handleChange}
           InputLabelProps={{ shrink: true, style: { color: "white" } }}
           InputProps={{ style: { color: "white" } }}
@@ -154,9 +118,9 @@ export default function UpdateReservation() {
           required
         />
         <TextField
-          label="Macchina"
-          name="macchina"
-          value={formData.macchina}
+          label="Cognome"
+          name="cognome"
+          value={formData.cognome}
           onChange={handleChange}
           InputLabelProps={{ style: { color: "white" } }}
           InputProps={{ style: { color: "white" } }}
@@ -165,9 +129,9 @@ export default function UpdateReservation() {
           required
         />
         <TextField
-          label="Proprietario"
-          name="propietario"
-          value={formData.propietario}
+          label="Vettura"
+          name="vettura"
+          value={formData.vettura}
           onChange={handleChange}
           InputLabelProps={{ style: { color: "white" } }}
           InputProps={{ style: { color: "white" } }}
@@ -176,10 +140,10 @@ export default function UpdateReservation() {
           required
         />
         <TextField
-          label="Tempo di impiego (ore)"
-          type="number"
-          name="tempoDiImpiego"
-          value={formData.tempoDiImpiego}
+          label="Telefono"
+          type="tel"
+          name="telefono"
+          value={formData.telefono}
           onChange={handleChange}
           InputLabelProps={{ style: { color: "white" } }}
           InputProps={{ style: { color: "white" } }}
@@ -187,28 +151,39 @@ export default function UpdateReservation() {
           fullWidth
         />
         <TextField
-          label="Prezzo (€)"
+          label="Incasso"
           type="number"
-          name="prezzo"
-          value={formData.prezzo}
+          name="incasso"
+          value={formData.incasso}
           onChange={handleChange}
           InputLabelProps={{ style: { color: "white" } }}
           InputProps={{ style: { color: "white" } }}
+          variant="outlined"
+          fullWidth
+          required
+        />
+        <TextField
+          label="Immagine Profilo"
+          type="Text"
+          name="immagine"
+          value={formData.immagine}
+          onChange={handleChange}
+          InputLabelProps={{ style: { color: "white" } }}
+          InputProps={{ style: { color: "white", borderColor: "white" } }}
           variant="outlined"
           fullWidth
           required
         />
         <FormControl fullWidth>
-          <InputLabel id="color-label" style={{ color: "white" }}>
-            Colore
-          </InputLabel>
+          <InputLabel id="color-label" style={{ color: "white" }}>Colore</InputLabel>
           <Select
             labelId="color-label"
-            name="color"
-            value={formData.color}
+            name="colore"
+            value={formData.colore}
             onChange={handleChange}
             style={{ color: "white", backgroundColor: "#333" }}
           >
+            {/* Opzioni per la selezione del colore */}
             <MenuItem value="#0000FF">Blu</MenuItem>
             <MenuItem value="#FF5733">Arancione</MenuItem>
             <MenuItem value="#33C1FF">Azzurro</MenuItem>
@@ -237,38 +212,15 @@ export default function UpdateReservation() {
         fullWidth
         style={{ marginTop: "20px" }}
       >
-        Elimina Prenotazione
+        Elimina cliente
       </Button>
-
-      <Button
-        onClick={handleMarkAsPaid}
-        variant="contained"
-        color="success"
-        className="w100"
-        style={{ marginTop: "20px", width: "100%" }}
-        disabled={formData.stato === 1} // Disabilita il pulsante se lo stato è 1
-      >
-        Metti in stato Pagato
-      </Button>
-      {formData.stato === 1 && (
-        <Button
-          onClick={handleMarkAsNotPaid}
-          variant="contained"
-          color="error" // Usa "error" invece di "danger" per Material-UI
-          className="w100"
-          style={{ marginTop: "20px", width: "100%" }}
-        >
-          Da Pagare
-        </Button>
-      )}
 
       {/* Dialog di conferma */}
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>Conferma Eliminazione</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Sei sicuro di voler eliminare questa prenotazione? L'azione è
-            irreversibile.
+            Sei sicuro di voler eliminare questo clientse? L'azione è irreversibile.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -281,7 +233,7 @@ export default function UpdateReservation() {
         </DialogActions>
       </Dialog>
       <Button
-        href="/"
+        href="/clientspage"
         color="success"
         variant="outlined"
         fullWidth
