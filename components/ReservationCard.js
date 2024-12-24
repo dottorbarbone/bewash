@@ -47,7 +47,24 @@ export default function ReservationCard({ reservation, onEdit }) {
     hour: "2-digit",
     minute: "2-digit",
   });
-
+  const incasso = reservation.prezzo - reservation.spesadipendente;
+  
+  let incassoColor;
+  switch (true) {
+    case incasso < 5:
+      incassoColor = "red"; // Basso
+      break;
+    case incasso >= 5 && incasso <= 10:
+      incassoColor = "orange"; // Medio
+      break;
+    case incasso > 15:
+      incassoColor = "green"; // Alto
+      break;
+    default:
+      incassoColor = "black"; // Default per valori non previsti
+  }
+  
+  
   return (
     <Card
       sx={{
@@ -99,6 +116,8 @@ export default function ReservationCard({ reservation, onEdit }) {
           </Link>
           {reservation.stato === 1 ? <Button color="success" variant="contained">Pagato</Button> : null}
         </Box>
+        {reservation.spesadipendente >= 1 ? <Typography sx={{ color: incassoColor }}>Incasso: €{incasso}</Typography> : null}
+        
         <Divider />
         <Box
           sx={{ display: "flex", flexDirection: "column", marginTop: "10px" }}

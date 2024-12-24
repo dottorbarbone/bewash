@@ -45,6 +45,7 @@ export default function UpdateReservation() {
     propietario: "",
     tempoDiImpiego: "",
     prezzo: "",
+    spesadipendente: "",
     color: "#0000FF",
   });
   const [openDialog, setOpenDialog] = useState(false);
@@ -198,6 +199,18 @@ export default function UpdateReservation() {
           fullWidth
           required
         />
+        <TextField
+          label="Spesa dipendente (€)"
+          type="number"
+          name="spesadipendente"
+          value={formData.spesadipendente}
+          onChange={handleChange}
+          InputLabelProps={{ style: { color: "white" } }}
+          InputProps={{ style: { color: "white" } }}
+          variant="outlined"
+          fullWidth
+          required
+        />
         <FormControl fullWidth>
           <InputLabel id="color-label" style={{ color: "white" }}>
             Colore
@@ -239,17 +252,17 @@ export default function UpdateReservation() {
       >
         Elimina Prenotazione
       </Button>
-
-      <Button
+      {formData.stato===0 && (      
+        <Button
         onClick={handleMarkAsPaid}
         variant="contained"
         color="success"
         className="w100"
         style={{ marginTop: "20px", width: "100%" }}
-        disabled={formData.stato === 1} // Disabilita il pulsante se lo stato è 1
       >
         Metti in stato Pagato
       </Button>
+      )}
       {formData.stato === 1 && (
         <Button
           onClick={handleMarkAsNotPaid}
