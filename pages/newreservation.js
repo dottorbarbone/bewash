@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router"; // Importa il router di Next.js
 import { Container, TextField, Typography, Box, Button, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 
 export default function FormPage() {
+  const router = useRouter(); // Inizializza il router
   const [formData, setFormData] = useState({
     dataOra: "",
     archivied: 0,
-    stato:0,
+    stato: 0,
     macchina: "",
     propietario: "",
     tempoDiImpiego: "",
@@ -21,7 +23,6 @@ export default function FormPage() {
     });
   };
 
-  // Funzione per inviare i dati (aggiungi o modifica)
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevenzione del comportamento predefinito
     try {
@@ -45,6 +46,7 @@ export default function FormPage() {
           prezzo: "",
           color: "#0000FF", // Resetta i campi dopo l'invio
         });
+        router.push("/"); // Reindirizza alla pagina principale (puoi modificare l'URL)
       } else {
         throw new Error("Errore durante l'aggiunta della prenotazione");
       }

@@ -58,7 +58,7 @@ export default function ClientCard({ client, onEdit }) {
     >
       <CardMedia
         component="div"
-        sx={{ height: 65, background:client.colore }}
+        sx={{ height: 65, background: client.colore }}
       >
         <Box
           sx={{
@@ -80,7 +80,7 @@ export default function ClientCard({ client, onEdit }) {
         <Box
           sx={{ display: "flex", alignItems: "center", marginBottom: "10px" }}
         >
-          <Avatar src={client.immagine} sx={{marginRight: "10px" }}>
+          <Avatar src={client.immagine} sx={{ marginRight: "10px" }}>
             <AccountCircleIcon />
           </Avatar>
           <Typography

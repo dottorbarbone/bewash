@@ -10,14 +10,18 @@ import Contability from "@/components/Contability";
 import Notes from "@/components/Notes";
 import ButtonGroup from "@/components/ButtonsGroup";
 import TotalEntrance from "./totalentrance";
+import InputNote from "@/components/inputnote";
+import CreditCard from "@/components/creditcard";
+
 export default function Home() {
   return (
     <>
       <ButtonGroup />
       <Reservations />
       <TotalEntrance />
-      <Contability />
-      <Notes />
+      <InputNote/>
+      <CreditCard/>
+      <br/><br/>
     </>
   );
 }
