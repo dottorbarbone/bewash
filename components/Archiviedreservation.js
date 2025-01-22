@@ -3,7 +3,7 @@ import { Container, Typography } from "@mui/material";
 import SimpleAlert from "@/components/Alert";
 import ReservationCard from "@/components/ReservationCard";
 
-export default function Reservations() {
+export default function ArchiviedReservations() {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -13,14 +13,14 @@ export default function Reservations() {
         const response = await fetch("https://bewash-bb768-default-rtdb.europe-west1.firebasedatabase.app/reservations.json");
         const data = await response.json();
         
-        // Trasforma l'oggetto ricevuto in un array di oggetti con ID inclusi e filtra archiviato=0
+        // Trasforma l'oggetto ricevuto in un array di oggetti con ID inclusi e filtra archivied === 1
         const reservationsArray = data
           ? Object.keys(data)
               .map((key) => ({
                 id: key,
                 ...data[key],
               }))
-              .filter((reservation) => reservation.archivied === 0) // Filtra le prenotazioni
+              .filter((reservation) => reservation.archivied === 1) // Filtra prenotazioni archiviate
           : [];
 
         setReservations(reservationsArray);
@@ -43,7 +43,7 @@ export default function Reservations() {
   return (
     <Container>
       <Typography variant="h5" sx={{ marginTop: "70px" }}>
-        NEXT RESERVATIONS
+        ARCHIVED RESERVATIONS
       </Typography>
       <br />
 
@@ -59,7 +59,7 @@ export default function Reservations() {
             />
           ))
         ) : (
-          <SimpleAlert/>
+          <SimpleAlert />
         )
       )}
     </Container>

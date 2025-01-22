@@ -45,6 +45,7 @@ export default function UpdateReservation() {
     propietario: "",
     tempoDiImpiego: "",
     prezzo: "",
+    archivied:"",
     spesadipendente: "",
     color: "#0000FF",
   });
@@ -118,6 +119,27 @@ export default function UpdateReservation() {
     try {
       await set(ref(db, `reservations/${id}/stato`), 0); // Imposta stato a 1 per "pagato"
       alert("Prenotazione contrassegnata come non pagata");
+      router.push("/");
+    } catch (error) {
+      console.error("Errore durante l'aggiornamento dello stato:", error);
+      alert("Errore durante l'operazione");
+    }
+  };
+
+  const handleMarkAsArchivied = async () => {
+    try {
+      await set(ref(db, `reservations/${id}/archivied`), 1); // Imposta stato a 1 per "archivio"
+      alert("Prenotazione archiviata");
+      router.push("/");
+    } catch (error) {
+      console.error("Errore durante l'aggiornamento dello stato:", error);
+      alert("Errore durante l'operazione");
+    }
+  };
+  const handleMarkAsNotArchivied = async () => {
+    try {
+      await set(ref(db, `reservations/${id}/archivied`), 0); // Imposta stato a 0 per "archivio"
+      alert("Prenotazione tolta dall'archivo");
       router.push("/");
     } catch (error) {
       console.error("Errore durante l'aggiornamento dello stato:", error);
@@ -260,9 +282,32 @@ export default function UpdateReservation() {
         className="w100"
         style={{ marginTop: "20px", width: "100%" }}
       >
-        Metti in stato Pagato
+        Pagato
       </Button>
       )}
+      {formData.archivied===0 && (
+        <Button
+        onClick={handleMarkAsArchivied}
+        variant="contained"
+        color="warning"
+        className="w100"
+        style={{ marginTop: "20px", width: "100%" }}
+      >
+        Archivia
+      </Button>
+      )}
+      {formData.archivied===1 && (
+        <Button
+        onClick={handleMarkAsNotArchivied}
+        variant="contained"
+        color="warning"
+        className="w100"
+        style={{ marginTop: "20px", width: "100%" }}
+      >
+        Togli dall'archivio
+      </Button>
+      )}
+
       {formData.stato === 1 && (
         <Button
           onClick={handleMarkAsNotPaid}

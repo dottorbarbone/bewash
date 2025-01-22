@@ -21,10 +21,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-export default function TotalArchiviedEntrance() {
+export default function TotalEntrance() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalHours, setTotalHours] = useState(0);
   const [totalReservations, setTotalReservations] = useState(0);
+  const [totalSpesaDipendenti, setTotalSpesaDipendenti] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,15 +37,15 @@ export default function TotalArchiviedEntrance() {
         if (snapshot.exists()) {
           const data = snapshot.val();
 
-          // Filtra solo le prenotazioni con archivied === 0
+          // Filtra solo le prenotazioni con archivied === 1 e stato === 1
           const activeReservations = Object.values(data).filter(
-            (reservation) => reservation.archivied === 0
+            (reservation) => reservation.archivied === 1 && reservation.stato === 1
           );
 
           // Calcolo delle somme richieste
           const reservationCount = activeReservations.length;
 
-          // Calcolo del totale dei prezzi
+          // Calcolo del totale dei prezzi (solo prenotazioni con stato === 1)
           const sumPrices = activeReservations.reduce(
             (acc, curr) => acc + (parseFloat(curr.prezzo) || 0),
             0
@@ -57,6 +58,13 @@ export default function TotalArchiviedEntrance() {
             0
           );
           setTotalHours(sumHours);
+
+          // Calcolo del totale spesa dipendenti
+          const sumSpesaDipendenti = activeReservations.reduce(
+            (acc, curr) => acc + (parseFloat(curr.spesadipendente) || 0),
+            0
+          );
+          setTotalSpesaDipendenti(sumSpesaDipendenti);
 
           // Imposta il numero totale delle prenotazioni attive
           setTotalReservations(reservationCount);
@@ -73,10 +81,6 @@ export default function TotalArchiviedEntrance() {
     fetchReservations();
   }, []);
 
-  // Calcolo della spesa totale come numero di prenotazioni * 3
-  const totalExpense = totalReservations * 3;
-  const restant = totalPrice - totalExpense;
-
   return (
     <Container style={{ marginTop: "50px", textAlign: "center" }}>
       {loading ? (
@@ -87,7 +91,7 @@ export default function TotalArchiviedEntrance() {
         <>
           <Typography variant="h5" style={{ color: "white" }}>
             <Alert icon={<EuroIcon fontSize="inherit" />} severity="success">
-              {totalPrice.toFixed(2)} € da incassare
+              {totalPrice.toFixed(2)} € incassati
             </Alert>
           </Typography>
           <br />
@@ -99,7 +103,7 @@ export default function TotalArchiviedEntrance() {
           <br />
           <Typography variant="h5" style={{ color: "white" }}>
             <Alert icon={<WarningIcon fontSize="inherit" />} severity="error">
-              Spesa stimata: {totalExpense.toFixed(2)} €. (Rimanenti {restant.toFixed(2)})
+              Spesa dipendenti: {totalSpesaDipendenti.toFixed(2)} €
             </Alert>
           </Typography>
         </>

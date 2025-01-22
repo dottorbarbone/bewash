@@ -4,7 +4,7 @@ import CheckIcon from '@mui/icons-material/Check';
 
 export default function SimpleAlert() {
   return (
-    <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+    <Alert icon={<CheckIcon fontSize="inherit" />} variant='outlined' severity="warning">
       Looks good! There's not reservation
     </Alert>
   );

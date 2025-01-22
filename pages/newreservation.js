@@ -4,6 +4,8 @@ import { Container, TextField, Typography, Box, Button, Select, MenuItem, FormCo
 export default function FormPage() {
   const [formData, setFormData] = useState({
     dataOra: "",
+    archivied: 0,
+    stato:0,
     macchina: "",
     propietario: "",
     tempoDiImpiego: "",
