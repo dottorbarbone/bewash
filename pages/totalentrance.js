@@ -5,6 +5,7 @@ import { Container, Typography, Alert } from "@mui/material";
 import EuroIcon from "@mui/icons-material/Euro";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import WarningIcon from "@mui/icons-material/Warning";
+import withAuth from "./withauth";
 
 // Configurazione Firebase
 const firebaseConfig = {
@@ -21,10 +22,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-export default function TotalArchiviedEntrance() {
+function TotalArchiviedEntrance() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalHours, setTotalHours] = useState(0);
   const [totalReservations, setTotalReservations] = useState(0);
+  const [totalSpesaDipendenti, setTotalSpesaDipendenti] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -58,6 +60,13 @@ export default function TotalArchiviedEntrance() {
           );
           setTotalHours(sumHours);
 
+          // Calcolo del totale spesa dipendenti
+          const sumSpesaDipendenti = activeReservations.reduce(
+            (acc, curr) => acc + (parseFloat(curr.spesadipendente) || 0),
+            0
+          );
+          setTotalSpesaDipendenti(sumSpesaDipendenti);
+
           // Imposta il numero totale delle prenotazioni attive
           setTotalReservations(reservationCount);
         } else {
@@ -73,9 +82,8 @@ export default function TotalArchiviedEntrance() {
     fetchReservations();
   }, []);
 
-  // Calcolo della spesa totale come numero di prenotazioni * 3
   const totalExpense = totalReservations * 3;
-  const restant = totalPrice - totalExpense;
+  const restant = totalPrice - totalExpense -totalSpesaDipendenti;
 
   return (
     <Container style={{ marginTop: "50px", textAlign: "center" }}>
@@ -87,7 +95,13 @@ export default function TotalArchiviedEntrance() {
         <>
           <Typography variant="h5" style={{ color: "white" }}>
             <Alert icon={<EuroIcon fontSize="inherit" />} severity="success">
-              {totalPrice.toFixed(2)} € da incassare
+              {totalPrice.toFixed(2)} € da incassare (Netto {restant.toFixed(2)}€)
+            </Alert>
+          </Typography>
+          <br />
+          <Typography variant="h5" style={{ color: "white" }}>
+            <Alert icon={<WarningIcon fontSize="inherit" />} severity="warning">
+              Spesa dipendenti: {totalSpesaDipendenti.toFixed(2)} €
             </Alert>
           </Typography>
           <br />
@@ -99,11 +113,14 @@ export default function TotalArchiviedEntrance() {
           <br />
           <Typography variant="h5" style={{ color: "white" }}>
             <Alert icon={<WarningIcon fontSize="inherit" />} severity="error">
-              Spesa stimata: {totalExpense.toFixed(2)} €. (Rimanenti {restant.toFixed(2)})
+              Spesa stimata materiali: {totalExpense.toFixed(2)} €. 
             </Alert>
           </Typography>
+
         </>
       )}
     </Container>
   );
 }
+
+export default withAuth(TotalArchiviedEntrance);

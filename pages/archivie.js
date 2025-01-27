@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, Button, Container } from "@mui/material";
 import ArchiviedReservations from "@/components/Archiviedreservation"; // Import corretto del componente
 import TotalArchiviedEntrance from "./totalarchiviedentrance";
+import withAuth from "./withauth";
 export default function Client() {
   return (
     <Container sx={{ marginTop: "50px" }}>

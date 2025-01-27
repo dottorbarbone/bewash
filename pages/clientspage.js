@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Button, Container } from "@mui/material";
 import Clients from "@/components/Clients"; // Import corretto del componente
-
+import withAuth from "./withauth";
 export default function Client() {
   return (
     <Container sx={{ marginTop: "50px" }}>

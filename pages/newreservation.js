@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router"; // Importa il router di Next.js
 import { Container, TextField, Typography, Box, Button, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import withAuth from "./withauth";
 
 export default function FormPage() {
   const router = useRouter(); // Inizializza il router

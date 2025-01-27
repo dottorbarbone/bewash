@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get, set, remove } from "firebase/database";
+import withAuth from "./withauth";
 
 // Configurazione Firebase
 const firebaseConfig = {
@@ -45,7 +46,7 @@ export default function UpdateReservation() {
     propietario: "",
     tempoDiImpiego: "",
     prezzo: "",
-    archivied:"",
+    archivied: "",
     spesadipendente: "",
     color: "#0000FF",
   });
@@ -274,38 +275,38 @@ export default function UpdateReservation() {
       >
         Elimina Prenotazione
       </Button>
-      {formData.stato===0 && (      
+      {formData.stato === 0 && (
         <Button
-        onClick={handleMarkAsPaid}
-        variant="contained"
-        color="success"
-        className="w100"
-        style={{ marginTop: "20px", width: "100%" }}
-      >
-        Pagato
-      </Button>
+          onClick={handleMarkAsPaid}
+          variant="contained"
+          color="success"
+          className="w100"
+          style={{ marginTop: "20px", width: "100%" }}
+        >
+          Pagato
+        </Button>
       )}
-      {formData.archivied===0 && (
+      {formData.archivied === 0 && (
         <Button
-        onClick={handleMarkAsArchivied}
-        variant="contained"
-        color="warning"
-        className="w100"
-        style={{ marginTop: "20px", width: "100%" }}
-      >
-        Archivia
-      </Button>
+          onClick={handleMarkAsArchivied}
+          variant="contained"
+          color="warning"
+          className="w100"
+          style={{ marginTop: "20px", width: "100%" }}
+        >
+          Archivia
+        </Button>
       )}
-      {formData.archivied===1 && (
+      {formData.archivied === 1 && (
         <Button
-        onClick={handleMarkAsNotArchivied}
-        variant="contained"
-        color="warning"
-        className="w100"
-        style={{ marginTop: "20px", width: "100%" }}
-      >
-        Togli dall'archivio
-      </Button>
+          onClick={handleMarkAsNotArchivied}
+          variant="contained"
+          color="warning"
+          className="w100"
+          style={{ marginTop: "20px", width: "100%" }}
+        >
+          Togli dall'archivio
+        </Button>
       )}
 
       {formData.stato === 1 && (
@@ -346,6 +347,15 @@ export default function UpdateReservation() {
         style={{ marginTop: "20px" }}
       >
         Home
+      </Button>
+      <Button
+        href={`/receipt/${id}`}
+        variant="contained"
+        color="secondary"
+        style={{ marginTop: "20px", width: "100%" }}
+        disabled
+      >
+        Stampa Ricevuta
       </Button>
     </Container>
   );

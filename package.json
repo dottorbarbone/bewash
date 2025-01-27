@@ -16,12 +16,19 @@
     "@mui/joy": "^5.0.0-beta.51",
     "@mui/material": "^6.1.6",
     "@mui/styled-engine-sc": "^6.1.6",
-    "firebase": "^11.0.1",
+    "axios": "^1.7.9",
+    "firebase": "^11.2.0",
+    "framer-motion": "^12.0.6",
     "next": "^15.0.4",
     "react": "^18.3.1",
+    "react-calendar": "^5.1.0",
     "react-dom": "^18.3.1",
+    "react-to-print": "^3.0.4",
     "styled-components": "^6.1.13",
     "swiper": "^11.1.14",
     "webpack": "^5.97.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^6.0.1"
   }
 }

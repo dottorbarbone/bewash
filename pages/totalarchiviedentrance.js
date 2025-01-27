@@ -5,6 +5,7 @@ import { Container, Typography, Alert } from "@mui/material";
 import EuroIcon from "@mui/icons-material/Euro";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import WarningIcon from "@mui/icons-material/Warning";
+import withAuth from "./withauth";
 
 // Configurazione Firebase
 const firebaseConfig = {
@@ -21,7 +22,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-export default function TotalEntrance() {
+function TotalEntrance() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalHours, setTotalHours] = useState(0);
   const [totalReservations, setTotalReservations] = useState(0);
@@ -111,3 +112,6 @@ export default function TotalEntrance() {
     </Container>
   );
 }
+
+// Esporta il componente con il wrapper `withAuth`
+export default withAuth(TotalEntrance);

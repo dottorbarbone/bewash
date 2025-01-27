@@ -1,12 +1,18 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+// lib/auth.js
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import { auth } from "./firebase";
 
-const auth = getAuth();
-signInWithEmailAndPassword(auth, 'eliabarbaric@icloud.com', 'Prova1234')
-  .then((userCredential) => {
-    // L'utente è autenticato
-    console.log('Accesso riuscito:', userCredential.user);
-  })
-  .catch((error) => {
-    console.error('Errore di accesso:', error.message);
-  });
-  console.log('Il tuo UID è:', userCredential.user.uid);
+// Funzione per registrare un utente
+export const register = async (email, password) => {
+  return createUserWithEmailAndPassword(auth, email, password);
+};
+
+// Funzione per effettuare il login
+export const login = async (email, password) => {
+  return signInWithEmailAndPassword(auth, email, password);
+};
+
+// Funzione per effettuare il logout
+export const logout = async () => {
+  return signOut(auth);
+};

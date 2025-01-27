@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get, set, remove } from "firebase/database";
+import withAuth from "./withauth";
 
 // Configurazione Firebase
 const firebaseConfig = {
@@ -34,7 +35,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-export default function Updateclients() {
+function Updateclients() {
   const router = useRouter();
   const { id } = router.query;
 
@@ -244,3 +245,5 @@ export default function Updateclients() {
     </Container>
   );
 }
+
+export default withAuth(Updateclients);

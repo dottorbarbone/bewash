@@ -54,10 +54,10 @@ export default function ReservationCard({ reservation, onEdit }) {
     case incasso < 5:
       incassoColor = "red"; // Basso
       break;
-    case incasso >= 5 && incasso <= 10:
+    case incasso >= 5 && incasso < 10:
       incassoColor = "orange"; // Medio
       break;
-    case incasso > 15:
+    case incasso >= 10:
       incassoColor = "green"; // Alto
       break;
     default:

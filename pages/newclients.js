@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, TextField, Typography, Box, Button, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import withAuth from "./withauth";
 
 export default function NewCLient() {
   const [formData, setFormData] = useState({

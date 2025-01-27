@@ -10,18 +10,19 @@ import Contability from "@/components/Contability";
 import Notes from "@/components/Notes";
 import ButtonGroup from "@/components/ButtonsGroup";
 import TotalEntrance from "./totalentrance";
-import InputNote from "@/components/inputnote";
-import CreditCard from "@/components/creditcard";
+import CalendarWithAppointments from "@/components/Calendar";
+import withAuth from "./withauth"; // Correggi il path
 
-export default function Home() {
+function Home() {
   return (
     <>
       <ButtonGroup />
       <Reservations />
       <TotalEntrance />
-      <InputNote/>
-      <CreditCard/>
       <br/><br/>
     </>
   );
 }
+
+// Avvolge il componente Home con il wrapper `withAuth`
+export default withAuth(Home);
