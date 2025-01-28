@@ -27,6 +27,7 @@ function TotalEntrance() {
   const [totalHours, setTotalHours] = useState(0);
   const [totalReservations, setTotalReservations] = useState(0);
   const [totalSpesaDipendenti, setTotalSpesaDipendenti] = useState(0);
+  const [netIncome, setNetIncome] = useState(0); // Stato per il totale netto
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -67,6 +68,9 @@ function TotalEntrance() {
           );
           setTotalSpesaDipendenti(sumSpesaDipendenti);
 
+          // Calcolo del totale netto incassato
+          setNetIncome(sumPrices - sumSpesaDipendenti);
+
           // Imposta il numero totale delle prenotazioni attive
           setTotalReservations(reservationCount);
         } else {
@@ -92,7 +96,7 @@ function TotalEntrance() {
         <>
           <Typography variant="h5" style={{ color: "white" }}>
             <Alert icon={<EuroIcon fontSize="inherit" />} severity="success">
-              {totalPrice.toFixed(2)} € incassati
+              {totalPrice.toFixed(2)}€ Pagati
             </Alert>
           </Typography>
           <br />
@@ -105,6 +109,12 @@ function TotalEntrance() {
           <Typography variant="h5" style={{ color: "white" }}>
             <Alert icon={<WarningIcon fontSize="inherit" />} severity="error">
               Spesa dipendenti: {totalSpesaDipendenti.toFixed(2)} €
+            </Alert>
+          </Typography>
+          <br />
+          <Typography variant="h5" style={{ color: "white" }}>
+            <Alert icon={<EuroIcon fontSize="inherit" />} severity="success">
+              Totale netto incassato: {netIncome.toFixed(2)} €
             </Alert>
           </Typography>
         </>

@@ -3,7 +3,7 @@ import { Typography, Button, Container } from "@mui/material";
 import ArchiviedReservations from "@/components/Archiviedreservation"; // Import corretto del componente
 import TotalArchiviedEntrance from "./totalarchiviedentrance";
 import withAuth from "./withauth";
-export default function Client() {
+function Client() {
   return (
     <Container sx={{ marginTop: "50px" }}>
       <Typography variant="h3" sx={{ marginBottom: "20px" }}>
@@ -17,3 +17,5 @@ export default function Client() {
     </Container>
   );
 }
+
+export default withAuth(Client)
