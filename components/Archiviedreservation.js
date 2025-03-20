@@ -13,16 +13,16 @@ export default function ArchiviedReservations() {
         const response = await fetch("https://bewash-bb768-default-rtdb.europe-west1.firebasedatabase.app/reservations.json");
         const data = await response.json();
         
-        // Trasforma l'oggetto ricevuto in un array di oggetti con ID inclusi e filtra archivied === 1
         const reservationsArray = data
           ? Object.keys(data)
               .map((key) => ({
                 id: key,
                 ...data[key],
               }))
-              .filter((reservation) => reservation.archivied === 1) // Filtra prenotazioni archiviate
+              .filter((reservation) => reservation.archivied === 1)
+              .sort((a, b) => new Date(b.dataOra) - new Date(a.dataOra)) // Ordina dalla data più recente alla più vecchia
           : [];
-
+  
         setReservations(reservationsArray);
         setLoading(false);
       } catch (error) {
@@ -32,6 +32,8 @@ export default function ArchiviedReservations() {
     }
     fetchReservations();
   }, []);
+  
+  
 
   // Funzione che verrà chiamata quando si clicca sull'icona di modifica
   const handleEdit = (id) => {

@@ -20,6 +20,7 @@ function Home() {
       <Reservations />
       <TotalEntrance />
       <br/><br/>
+      
     </>
   );
 }

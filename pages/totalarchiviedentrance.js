@@ -25,9 +25,10 @@ const db = getDatabase(app);
 function TotalEntrance() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalHours, setTotalHours] = useState(0);
+  const [totalHoursDipendente, setTotalHoursDipendente] = useState(0);
   const [totalReservations, setTotalReservations] = useState(0);
   const [totalSpesaDipendenti, setTotalSpesaDipendenti] = useState(0);
-  const [netIncome, setNetIncome] = useState(0); // Stato per il totale netto
+  const [netIncome, setNetIncome] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -39,40 +40,29 @@ function TotalEntrance() {
         if (snapshot.exists()) {
           const data = snapshot.val();
 
-          // Filtra solo le prenotazioni con archivied === 1 e stato === 1
           const activeReservations = Object.values(data).filter(
             (reservation) => reservation.archivied === 1 && reservation.stato === 1
           );
 
-          // Calcolo delle somme richieste
-          const reservationCount = activeReservations.length;
-
-          // Calcolo del totale dei prezzi (solo prenotazioni con stato === 1)
-          const sumPrices = activeReservations.reduce(
-            (acc, curr) => acc + (parseFloat(curr.prezzo) || 0),
-            0
+          setTotalReservations(activeReservations.length);
+          setTotalPrice(
+            activeReservations.reduce((acc, curr) => acc + (parseFloat(curr.prezzo) || 0), 0)
           );
-          setTotalPrice(sumPrices);
-
-          // Calcolo del totale delle ore lavorate
-          const sumHours = activeReservations.reduce(
-            (acc, curr) => acc + (parseFloat(curr.tempoDiImpiego) || 0),
-            0
+          setTotalHours(
+            activeReservations.reduce((acc, curr) => acc + (parseFloat(curr.tempoDiImpiego) || 0), 0)
           );
-          setTotalHours(sumHours);
-
-          // Calcolo del totale spesa dipendenti
-          const sumSpesaDipendenti = activeReservations.reduce(
-            (acc, curr) => acc + (parseFloat(curr.spesadipendente) || 0),
-            0
+          setTotalSpesaDipendenti(
+            activeReservations.reduce((acc, curr) => acc + (parseFloat(curr.spesadipendente) || 0), 0)
           );
-          setTotalSpesaDipendenti(sumSpesaDipendenti);
+          setNetIncome(
+            activeReservations.reduce((acc, curr) => acc + (parseFloat(curr.prezzo) || 0), 0) -
+            activeReservations.reduce((acc, curr) => acc + (parseFloat(curr.spesadipendente) || 0), 0)
+          );
 
-          // Calcolo del totale netto incassato
-          setNetIncome(sumPrices - sumSpesaDipendenti);
-
-          // Imposta il numero totale delle prenotazioni attive
-          setTotalReservations(reservationCount);
+          // Calcolo delle ore totali dei dipendenti
+          setTotalHoursDipendente(
+            activeReservations.reduce((acc, curr) => acc + (parseFloat(curr.oreDipendente) || 0), 0)
+          );
         } else {
           console.warn("Nessuna prenotazione trovata nel database.");
         }
@@ -101,8 +91,20 @@ function TotalEntrance() {
           </Typography>
           <br />
           <Typography variant="h5" style={{ color: "white" }}>
+            <Alert icon={<EuroIcon fontSize="inherit" />} severity="success">
+              Totale netto incassato: {netIncome.toFixed(2)} €
+            </Alert>
+          </Typography>
+          <br />
+          <Typography variant="h5" style={{ color: "white" }}>
             <Alert icon={<AccessTimeIcon fontSize="inherit" />} severity="info">
               Totale ore impiegate: {totalHours.toFixed(2)} ore
+            </Alert>
+          </Typography>
+          <br />
+          <Typography variant="h5" style={{ color: "white" }}>
+            <Alert icon={<AccessTimeIcon fontSize="inherit" />} severity="warning">
+              Ore dipendente: {totalHoursDipendente.toFixed(2)} ore
             </Alert>
           </Typography>
           <br />
@@ -111,17 +113,10 @@ function TotalEntrance() {
               Spesa dipendenti: {totalSpesaDipendenti.toFixed(2)} €
             </Alert>
           </Typography>
-          <br />
-          <Typography variant="h5" style={{ color: "white" }}>
-            <Alert icon={<EuroIcon fontSize="inherit" />} severity="success">
-              Totale netto incassato: {netIncome.toFixed(2)} €
-            </Alert>
-          </Typography>
         </>
       )}
     </Container>
   );
 }
 
-// Esporta il componente con il wrapper `withAuth`
 export default withAuth(TotalEntrance);

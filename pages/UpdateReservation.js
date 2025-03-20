@@ -45,6 +45,7 @@ export default function UpdateReservation() {
     macchina: "",
     propietario: "",
     tempoDiImpiego: "",
+    oreDipendente:"",
     prezzo: "",
     archivied: "",
     spesadipendente: "",
@@ -234,6 +235,18 @@ export default function UpdateReservation() {
           fullWidth
           required
         />
+        <TextField
+          label="Tempo di impiego dipendente"
+          type="number"
+          name="oreDipendente"
+          value={formData.oreDipendente}
+          onChange={handleChange}
+          InputLabelProps={{ style: { color: "white" } }}
+          InputProps={{ style: { color: "white" } }}
+          variant="outlined"
+          fullWidth
+          required
+        />
         <FormControl fullWidth>
           <InputLabel id="color-label" style={{ color: "white" }}>
             Colore
@@ -245,16 +258,13 @@ export default function UpdateReservation() {
             onChange={handleChange}
             style={{ color: "white", backgroundColor: "#333" }}
           >
-            <MenuItem value="#0000FF">Blu</MenuItem>
             <MenuItem value="#FF5733">Arancione</MenuItem>
             <MenuItem value="#33C1FF">Azzurro</MenuItem>
             <MenuItem value="#FF33A6">Rosa</MenuItem>
             <MenuItem value="#33FF57">Verde</MenuItem>
             <MenuItem value="#FF8C33">Arancio chiaro</MenuItem>
             <MenuItem value="#5733FF">Viola</MenuItem>
-            <MenuItem value="#33FFF6">Turchese</MenuItem>
             <MenuItem value="#FFC733">Giallo</MenuItem>
-            <MenuItem value="#33FFAB">Verde acqua</MenuItem>
           </Select>
         </FormControl>
         <Button

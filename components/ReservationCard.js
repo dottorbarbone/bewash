@@ -116,7 +116,7 @@ export default function ReservationCard({ reservation, onEdit }) {
           </Link>
           {reservation.stato === 1 ? <Button color="success" variant="contained">Pagato</Button> : null}
         </Box>
-        {reservation.spesadipendente >= 1 ? <Typography sx={{ color: incassoColor }}>Incasso: €{incasso}</Typography> : null}
+        {reservation.spesadipendente >= 0 ? <Typography sx={{ color: incassoColor }}>Incasso: €{incasso}</Typography> : null}
         
         <Divider />
         <Box

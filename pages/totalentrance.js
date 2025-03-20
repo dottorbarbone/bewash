@@ -83,7 +83,7 @@ function TotalArchiviedEntrance() {
   }, []);
 
   const totalExpense = totalReservations * 3;
-  const restant = totalPrice - totalExpense -totalSpesaDipendenti;
+  const restant = totalPrice - totalSpesaDipendenti;
 
   return (
     <Container style={{ marginTop: "50px", textAlign: "center" }}>

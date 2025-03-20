@@ -1,24 +1,36 @@
-import Head from "next/head";
-import Image from "next/image";
-import localFont from "next/font/local";
-import styles from "@/styles/Home.module.css";
-import { Container, Typography } from "@mui/material";
-import UtilityCard from "@/components/utilitycard";
-import Swiper from "swiper";
-import Reservations from "@/components/Reservations";
-import ContabilityAlert from "./ContabilityAlert";
-import Button from "@mui/material/Button";
-export default function ButtonGroup(){
-    return(
-        <Container sx={{display:"flex", marginTop:"50px"}}>
-            
-                <Button variant="outlined" href="/newreservation">Add Reservation</Button> &emsp;
-                <Button variant="outlined" href="/archivie">Archivie</Button> &emsp;
-                <Button variant="outlined" href="/clientspage">Clients</Button> &emsp;
-                <Button variant="outlined">Products</Button> &emsp; 
-                <Button variant="outlined">Settings</Button> &emsp;               
-                <Button color="success" href="/Account" >Profile</Button>
+import { Container, Button, Box } from "@mui/material";
 
-        </Container>
-    );
+export default function ButtonGroup() {
+  return (
+    <Container sx={{ marginTop: "50px", display: "flex", justifyContent: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 2, // Creates space between buttons
+          justifyContent: "center",
+          width: "100%",
+        }}
+      >
+        <Button variant="outlined" href="/newreservation" sx={{ minWidth: 120, flexGrow: 1 }}>
+          Add Reservation
+        </Button>
+        <Button variant="outlined" href="/archivie" sx={{ minWidth: 120, flexGrow: 1 }}>
+          Archivie
+        </Button>
+        <Button variant="outlined" href="/clientspage" sx={{ minWidth: 120, flexGrow: 1 }}>
+          Clients
+        </Button>
+        <Button variant="outlined" href="/listino" sx={{ minWidth: 120, flexGrow: 1 }}>
+          Listino
+        </Button>
+        <Button variant="outlined" sx={{ minWidth: 120, flexGrow: 1 }}>
+          Settings
+        </Button>
+        <Button color="success" href="/Account" sx={{ minWidth: 120, flexGrow: 1 }}>
+          Profile
+        </Button>
+      </Box>
+    </Container>
+  );
 }
